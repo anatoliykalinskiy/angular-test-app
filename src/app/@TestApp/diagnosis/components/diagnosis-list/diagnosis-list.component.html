@@ -1,0 +1,31 @@
+<div class="content-container">
+  <form class="diagnosis-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-item" style="flex-direction: row; align-items: center;margin-bottom: 16px;">
+      <div class="form-item-title">
+        <p class="item-title">Дата:</p>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" placeholder="Оберіть дату">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <p class="item-title">Діагнози за ICPC-2:</p>
+    <div style="flex-direction: column;margin-bottom: 24px;">
+      <ng-container *ngFor="let item of this.form.controls['conditions'].value">
+        <app-diagnosis-item [data]="item"></app-diagnosis-item>
+      </ng-container>
+      <span class="text-button" (click)="add($event)">+ додати ще</span>
+    </div>
+
+    <button mat-stroked-button type="submit" class="submit-button">Сформувати JSON</button>
+
+    <p class="item-title">JSON:</p>
+    <mat-form-field style="width: 100%" appearance="outline">
+      <textarea matInput formControlName="json"></textarea>
+    </mat-form-field>
+  </form>
+
+</div>

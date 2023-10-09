@@ -1,0 +1,20 @@
+<form [formGroup]="form">
+  <mat-form-field style="width: 500px; margin-right: 24px;" appearance="outline">
+    <mat-label>Діагноз</mat-label>
+    <input type="text"
+           placeholder="введіть назву"
+           matInput
+           formControlName="diagnosisControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.code + ' ' + option.name" (click)="onSelectValue(option)">
+        {{option.code}} {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field style="width: 400px;" appearance="outline">
+    <mat-label>Опис</mat-label>
+    <input matInput placeholder="" formControlName="notesControl">
+  </mat-form-field>
+</form>
