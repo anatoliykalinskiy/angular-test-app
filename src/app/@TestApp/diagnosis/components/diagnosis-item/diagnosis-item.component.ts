@@ -9,13 +9,12 @@ import {debounceTime, distinctUntilChanged, map, Observable, of, startWith, swit
   styleUrls: ['./diagnosis-item.component.scss'],
   providers: [DiagnosisService]
 })
-export class DiagnosisItemComponent implements AfterViewInit, OnInit {
+export class DiagnosisItemComponent implements OnInit {
   @Input() data!: any;
   form: FormGroup = new FormGroup({
     diagnosisControl: new FormControl(''),
     notesControl: new FormControl('')
   })
-  options: string[] = ['One', 'Two', 'Three'];
   filteredOptions!: Observable<any[]>;
 
   ngOnInit() {
@@ -35,13 +34,10 @@ export class DiagnosisItemComponent implements AfterViewInit, OnInit {
   constructor(private service: DiagnosisService) {
   }
 
-  ngAfterViewInit() {
-    console.log(this.data)
-  }
-
   onSelectValue(option: any): void {
     this.data.code.coding = option.code;
     this.data.context.identifier.value = option.id;
+    this.data.onset_date = new Date().toISOString();
   }
 
 }
